@@ -1,25 +1,39 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 local OutsideVehicles = {}
 
-QBCore.Commands.Add("setjobvehicles", "Assigné un véhicule à une entreprise", {{name = 'plate', help = 'Plaque d\'imatriculation'}, {name = 'job'}}, false, function(source, args)
+QBCore.Commands.Add("setjobvehicles", "Assigné un véhicule à une entreprise", {{name = 'plate', help = 'Plaque d\'imatriculation'}, {name = 'type', help = 'Type de job (1 ou 2)'},{name = 'job'}}, false, function(source, args)
     local src = source
     local pData = QBCore.Functions.GetPlayer(src)
-    local boss = pData.PlayerData.job.isboss
     local plate = args[1]  
-    print(plate)
-    local job = args[2]
-    print(job)
+    local job = args[3]
+    local type = args[2]
+    local boss
+    if type == 1 then
+        boss = pData.PlayerData.job.isboss
+    elseif type == 2 then
+        boss = pData.PlayerData.gang.isboss
+    else 
+        TriggerClientEvent('QBCore:Notify', source, "La valeur du type d'affaire n'est pas renseigné ! ", 'error')
+    end
     if boss then
         QBCore.Functions.TriggerCallback('qb-garage:server:checkVehicleOwner', source, function(owned)     --Check owner
             if owned then
                 MySQL.query("UPDATE player_vehicles SET citizenid = ?, job = ? WHERE plate = ?", {"NULL", job, plate})
-                TriggerClientEvent('QBCore:Notify', source, 'Vous avez bien ajouter '..plate..' au garage de votre société', 'success')
+                if type == 1 then
+                    TriggerClientEvent('QBCore:Notify', source, 'Vous avez bien ajouter '..plate..' au garage de votre société', 'success')
+                else
+                    TriggerClientEvent('QBCore:Notify', source, 'Vous avez bien ajouter '..plate..' au garage de votre organisation', 'success')   
+                end
             else
                 TriggerClientEvent('QBCore:Notify', source, Lang:t("error.not_owned"), 'error')
             end
         end, plate)
     else
-        TriggerClientEvent('QBCore:Notify', source, "Vous n'êtes pas le dirigeant de cette société ("..job..')', 'error')
+        if type == 1 then
+            TriggerClientEvent('QBCore:Notify', source, "Vous n'êtes pas le dirigeant de cette société ("..job..')', 'error')
+        else
+            TriggerClientEvent('QBCore:Notify', source, "Vous n'êtes pas le dirigeant de cette organisation ("..job..')', 'error')
+        end
     end
     QBCore.Commands.Refresh(src)
 end)
@@ -46,7 +60,26 @@ QBCore.Functions.CreateCallback("qb-garage:server:GetGarageVehicles", function(s
             end
         )
     elseif type == "depot" then    --Depot give player cars that are not in garage only
-        MySQL.query('SELECT * FROM player_vehicles WHERE citizenid = ? AND (state = ?)', {pData.PlayerData.citizenid, 0}, function(result)
+        local job = pData.PlayerData.job.name
+        local gang = pData.PlayerData.gang.name
+        local jobboss = pData.PlayerData.job.isboss
+        local gangboss = pData.PlayerData.gang.isboss
+        local querry = 'SELECT * FROM player_vehicles WHERE citizenid = @cid AND (state = @state)'
+        if jobboss or gangboss then
+            if jobboss then
+                querry = 'SELECT * FROM player_vehicles WHERE (job = @job OR citizenid = @cid) AND (state = @state)'
+            elseif gangboss then
+                querry = 'SELECT * FROM player_vehicles WHERE (job = @gang OR citizenid = @cid) AND (state = @state)'
+            end
+        end
+        MySQL.query(querry, 
+        {
+            ['@cid'] = pData.PlayerData.citizenid,
+            ['@state'] = 0,
+            ['@job'] = job,
+            ['@gang'] = gang,
+        
+        }, function(result)
             local tosend = {}
             if result[1] then
                 --Check vehicle type against depot type
@@ -66,12 +99,32 @@ QBCore.Functions.CreateCallback("qb-garage:server:GetGarageVehicles", function(s
                 cb(nil)
             end
         end)
-    else                            --House give all cars in the garage, Job and Gang depend of config
-        local job = pData.PlayerData.job.name
+    elseif type == "house" then
+        
+        local shared = ''
         if not Config["SharedGarages"] and type ~= "house" then
             shared = " AND citizenid = '"..pData.PlayerData.citizenid.."'"
         end
+        MySQL.query('SELECT * FROM player_vehicles WHERE garage = ? AND state = ?'..shared, {garage, 1}, function(result)
+            if result[1] then
+                cb(result)
+            else
+                cb(nil)
+            end
+        end)
+
+    elseif type == "job" then                    --House give all cars in the garage, Job and Gang depend of config
+        local job = pData.PlayerData.job.name
         MySQL.query('SELECT * FROM player_vehicles WHERE garage = ? AND state = ? AND (job = ? OR citizenid = ?)', {garage, 1, job, pData.PlayerData.citizenid}, function(result)
+            if result[1] then 
+                cb(result)
+            else
+                cb(nil)
+            end
+        end)
+    elseif type == "gang" then
+        local gang = pData.PlayerData.gang.name
+        MySQL.query('SELECT * FROM player_vehicles WHERE garage = ? AND state = ? AND (job = ? OR citizenid = ?)', {garage, 1, gang, pData.PlayerData.citizenid}, function(result)
             if result[1] then 
                 cb(result)
             else
