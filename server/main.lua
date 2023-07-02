@@ -1,6 +1,29 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 local OutsideVehicles = {}
 
+QBCore.Commands.Add("setjobvehicles", "Assigné un véhicule à une entreprise", {{name = 'plate', help = 'Plaque d\'imatriculation'}, {name = 'job'}}, false, function(source, args)
+    local src = source
+    local pData = QBCore.Functions.GetPlayer(src)
+    local boss = pData.PlayerData.job.isboss
+    local plate = args[1]  
+    print(plate)
+    local job = args[2]
+    print(job)
+    if boss then
+        QBCore.Functions.TriggerCallback('qb-garage:server:checkVehicleOwner', source, function(owned)     --Check owner
+            if owned then
+                MySQL.query("UPDATE player_vehicles SET citizenid = ?, job = ? WHERE plate = ?", {"NULL", job, plate})
+                TriggerClientEvent('QBCore:Notify', source, 'Vous avez bien ajouter '..plate..' au garage de votre société', 'success')
+            else
+                TriggerClientEvent('QBCore:Notify', source, Lang:t("error.not_owned"), 'error')
+            end
+        end, plate)
+    else
+        TriggerClientEvent('QBCore:Notify', source, "Vous n'êtes pas le dirigeant de cette société ("..job..')', 'error')
+    end
+    QBCore.Commands.Refresh(src)
+end)
+
 QBCore.Functions.CreateCallback("qb-garage:server:GetGarageVehicles", function(source, cb, garage, type, category)
     local src = source
     local pData = QBCore.Functions.GetPlayer(src)
@@ -44,12 +67,12 @@ QBCore.Functions.CreateCallback("qb-garage:server:GetGarageVehicles", function(s
             end
         end)
     else                            --House give all cars in the garage, Job and Gang depend of config
-        local shared = ''
+        local job = pData.PlayerData.job.name
         if not Config["SharedGarages"] and type ~= "house" then
             shared = " AND citizenid = '"..pData.PlayerData.citizenid.."'"
         end
-        MySQL.query('SELECT * FROM player_vehicles WHERE garage = ? AND state = ?'..shared, {garage, 1}, function(result)
-            if result[1] then
+        MySQL.query('SELECT * FROM player_vehicles WHERE garage = ? AND state = ? AND (job = ? OR citizenid = ?)', {garage, 1, job, pData.PlayerData.citizenid}, function(result)
+            if result[1] then 
                 cb(result)
             else
                 cb(nil)
@@ -89,11 +112,7 @@ QBCore.Functions.CreateCallback("qb-garage:server:validateGarageVehicle", functi
             end
         end)
     else
-        local shared = ''
-        if not Config["SharedGarages"] and type ~= "house" then
-            shared = " AND citizenid = '"..pData.PlayerData.citizenid.."'"
-        end
-        MySQL.query('SELECT * FROM player_vehicles WHERE garage = ? AND state = ? AND plate = ?'..shared, {garage, 1, plate}, function(result)
+        MySQL.query('SELECT * FROM player_vehicles WHERE garage = ? AND state = ? AND plate = ?', {garage, 1, plate}, function(result)
             if result[1] then
                 cb(true)
             else
@@ -147,11 +166,8 @@ QBCore.Functions.CreateCallback("qb-garage:server:checkOwnership", function(sour
             end
         end)
     else                            --Job garages only for cars that are owned by someone (for sharing and service) or only by player depending of config
-        local shared = ''
-        if not Config["SharedGarages"] then
-            shared = " AND citizenid = '"..pData.PlayerData.citizenid.."'"
-        end
-        MySQL.query('SELECT * FROM player_vehicles WHERE plate = ?'..shared, {plate}, function(result)
+        local job = pData.PlayerData.job.name
+        MySQL.query('SELECT * FROM player_vehicles WHERE plate = ? AND (job = ? OR citizenid = ?)', {plate,job, pData.PlayerData.citizenid}, function(result)
             if result[1] then
                 cb(true)
             else

@@ -1,6 +1,6 @@
 Config = Config or {}
 Config.AutoRespawn = false --True == auto respawn cars that are outside into your garage on script restart, false == does not put them into your garage and players have to go to the impound
-Config.SharedGarages = true   --True == Gang and job garages are shared, false == Gang and Job garages are personal
+Config.SharedGarages = false   --True == Gang and job garages are shared, false == Gang and Job garages are personal
 Config.VisuallyDamageCars = true --True == Visually damage cars that go out of the garage depending of body damage, false == Do not visually damage cars (damage is still applied to car values)
 Config.SharedPublicGarages = false --True All public garages can access all vehicle of player that parked in garage type "public", -- False player can't access another public garages from anywhere (this is original behavior of script)
 
@@ -441,6 +441,20 @@ Config.Garages = {
         ["blipColor"] = 2,
         ["type"] = "public",                --public, job, gang, depot
         ["vehicle"] = "rig"                 --car, air, sea, rig
+    },
+    ["vineyard"] = {
+        ["label"] = "Parking Privé Vignerons",
+        ["takeVehicle"] = vector3(-1918.15, 2062.83, 140.72),
+        ["spawnPoint"] = vector4(-1909.03, 2058.12, 140.74, 182.67),
+        ["putVehicle"] = vector3(-1891.3, 2046.02, 140.86),
+        ["showBlip"] = false,
+        ["blipName"] = "Big Rig Parking",
+        ["blipNumber"] = 357,
+        ["blipColor"] = 2,
+        ["type"] = "job",                --public, job, gang, depot
+        ["vehicle"] = "car",                --car, air, sea, rig
+        ["job"] = "vineyard",
+        ["jobType"] = "leo"                 
     },
 }
 Config.HouseGarages = {}
