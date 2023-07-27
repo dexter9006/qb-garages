@@ -19,9 +19,9 @@ Config.Garages = {
     },
     ["casinogarage"] = {
         ["label"] = "Casino - Parking",
-        ["takeVehicle"] = vector3(925.3, 51.85, 81.11),
-        ["spawnPoint"] = vector4(918.77, 51.73, 80.16, 329.43),
-        ["putVehicle"] = vector3(914.92, 37.85, 80.07),
+        ["takeVehicle"] = vector3(914.86, 1.27, 78.44),
+        ["spawnPoint"] = vector4(906.6, 6.71, 78.44, 58.19),
+        ["putVehicle"] = vector3(911.02, -2.95, 78.44),
         ["showBlip"] = true,
         ["blipName"] = "Parking Public",
         ["blipNumber"] = 357,
