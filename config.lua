@@ -251,9 +251,9 @@ Config.Garages = {
     },
     ["cartel"] = {
         ["label"] = "Cartel",
-        ["takeVehicle"] = vector3(1407.18, 1118.04, 114.84),
-        ["spawnPoint"] = vector4(1407.18, 1118.04, 114.84, 88.34),
-        ["putVehicle"] = vector3(1407.18, 1118.04, 114.84),
+        ["takeVehicle"] = vector3(1407.32, 1120.51, 114.84),
+        ["spawnPoint"] = vector4(1401.18, 1120.57, 114.4, 90.11),
+        ["putVehicle"] = vector3(1407.32, 1117.2, 114.84),
         ["showBlip"] = false,
         ["blipName"] = "Cartel - Garage",
         ["blipNumber"] = 357,
