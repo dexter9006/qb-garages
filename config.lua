@@ -29,6 +29,7 @@ Config.Garages = {
         ["type"] = "public",                --public, job, gang, depot
         ["vehicle"] = "car"                 --car, air, sea, rig
     },
+    --[[
     ["sapcounsel"] = {
         ["label"] = "San Andreas - Parking",
         ["takeVehicle"] = vector3(-330.01, -780.33, 33.96),
@@ -41,6 +42,7 @@ Config.Garages = {
         ["type"] = "public",                --public, job, gang, depot
         ["vehicle"] = "car"                 --car, air, sea, rig
     },
+    --]]
     ["spanishave"] = {
         ["label"] = "Spanish Ave - Parking",
         ["takeVehicle"] = vector3(-1160.86, -741.41, 19.63),
@@ -53,6 +55,7 @@ Config.Garages = {
         ["type"] = "public",                --public, job, gang, depot
         ["vehicle"] = "car"                 --car, air, sea, rig
     },
+    --[[
     ["caears24"] = {
         ["label"] = "Caears 24 - Parking",
         ["takeVehicle"] = vector3(69.84, 12.6, 68.96),
@@ -65,6 +68,7 @@ Config.Garages = {
         ["type"] = "public",                --public, job, gang, depot
         ["vehicle"] = "car"                 --car, air, sea, rig
     },
+    -- ]]
     ["caears242"] = {
         ["label"] = "Caears 24 - Parking",
         ["takeVehicle"] = vector3(-475.31, -818.73, 30.46),
@@ -137,6 +141,7 @@ Config.Garages = {
         ["type"] = "public",                --public, job, gang, depot
         ["vehicle"] = "car"                 --car, air, sea, rig
     },
+    --[[
     ["shoreparking"] = {
         ["label"] = "Shore - Parking",
         ["takeVehicle"] = vector3(1726.21, 3707.16, 34.17),
@@ -149,6 +154,7 @@ Config.Garages = {
         ["type"] = "public",                --public, job, gang, depot
         ["vehicle"] = "car"                 --car, air, sea, rig
     },
+    --]]
     ["haanparking"] = {
         ["label"] = "Bell Farms - Parking",
         ["takeVehicle"] = vector3(78.34, 6418.74, 31.28),
