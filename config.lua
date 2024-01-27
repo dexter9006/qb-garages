@@ -462,7 +462,8 @@ Config.Garages = {
         ["vehicle"] = "car",                --car, air, sea, rig
         ["job"] = "vineyard",
         ["jobType"] = "vigne"                 
-    },["burgershot"] = {
+    },
+    ["burgershot"] = {
         ["label"] = "Parking Privé Burgershot",
         ["takeVehicle"] = vector3(-1177.92, -891.09, 13.77),
         ["spawnPoint"] = vector3(-1166.58, -895.75, 13.99),
@@ -475,6 +476,20 @@ Config.Garages = {
         ["vehicle"] = "car",              --car, air, sea, rig
         ["job"] = "burgershot",
         ["jobType"] = "burger"
+    },
+    ["ambulance"] = {
+        ["label"] = "EMS",
+        ["takeVehicle"] = vector3(336.2, -589.32, 28.8),
+        ["spawnPoint"] = vector4(337.39, -578.91, 28.57, 339.64),
+        ["putVehicle"] = vector3(340.16, -571.82, 28.8),
+        ["showBlip"] = false,
+        ["blipName"] = "EMS - Garage Privé",
+        ["blipNumber"] = 357,
+        ["blipColor"] = 5,
+        ["type"] = "job",                --public, job, gang, depot
+        ["vehicle"] = "car",              --car, air, sea, rig
+        ["job"] = "ambulance",
+        ["jobType"] = "ems"
     },
 }
 Config.HouseGarages = {}
