@@ -270,12 +270,12 @@ Config.Garages = {
         ["jobType"] = "cartel"
     },
     ["police"] = {
-        ["label"] = "Police",
+        ["label"] = "Parking Privé LSPD",
         ["takeVehicle"] = vector3(454.6, -1017.4, 28.4),
         ["spawnPoint"] = vector4(438.4, -1018.3, 27.7, 90.0),
         ["putVehicle"] = vector3(452.88, -1006.98, 27.5),
         ["showBlip"] = false,
-        ["blipName"] = "Police - Garage Privé",
+        ["blipName"] = "LSPD - Garage Privé",
         ["blipNumber"] = 357,
         ["blipColor"] = 3,
         ["type"] = "job",                --public, job, gang, depot
@@ -478,7 +478,7 @@ Config.Garages = {
         ["jobType"] = "burger"
     },
     ["ambulance"] = {
-        ["label"] = "EMS",
+        ["label"] = "Parking Privé EMS",
         ["takeVehicle"] = vector3(336.2, -589.32, 28.8),
         ["spawnPoint"] = vector4(337.39, -578.91, 28.57, 339.64),
         ["putVehicle"] = vector3(340.16, -571.82, 28.8),
