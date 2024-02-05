@@ -256,7 +256,7 @@ RegisterNetEvent("qb-garages:client:VehicleList", function(data)
         leave = Lang:t("menu.leave." .. garage.vehicle)
     end
 
-    QBCore.Functions.TriggerCallback("qb-garage:server:GetGarageVehicles", function(result)
+    QBCore.Functions.TriggerCallback("qb-garages:server:GetGarageVehicles", function(result)
         if result == nil then
             QBCore.Functions.Notify(Lang:t("error.no_vehicles"), "error", 5000)
         else
@@ -336,7 +336,7 @@ RegisterNetEvent('qb-garages:client:takeOutGarage', function(data)
     local vehicle = data.vehicle
     local garage = data.garage
     local index = data.index
-    QBCore.Functions.TriggerCallback('qb-garage:server:IsSpawnOk', function(spawn)
+    QBCore.Functions.TriggerCallback('qb-garages:server:IsSpawnOk', function(spawn)
         if spawn then
             local location
             if type == "house" then
@@ -345,12 +345,12 @@ RegisterNetEvent('qb-garages:client:takeOutGarage', function(data)
             else
                 location = garage.spawnPoint
             end
-            QBCore.Functions.TriggerCallback('qb-garage:server:spawnvehicle', function(netId, properties)
+            QBCore.Functions.TriggerCallback('qb-garages:server:spawnvehicle', function(netId, properties)
                 local veh = NetToVeh(netId)
                 QBCore.Functions.SetVehicleProperties(veh, properties)
                 exports['cdn-fuel']:SetFuel(veh, vehicle.fuel)
                 doCarDamage(veh, vehicle)
-                TriggerServerEvent('qb-garage:server:updateVehicleState', 0, vehicle.plate, index)
+                TriggerServerEvent('qb-garages:server:updateVehicleState', 0, vehicle.plate, index)
                 closeMenuFull()
                 TriggerEvent("vehiclekeys:client:SetOwner", QBCore.Functions.GetPlate(veh))
                 SetVehicleEngineOn(veh, true, true)
@@ -369,13 +369,13 @@ end)
 local function enterVehicle(veh, indexgarage, type, garage)
     local plate = QBCore.Functions.GetPlate(veh)
     if GetVehicleNumberOfPassengers(veh) == 0 then
-        QBCore.Functions.TriggerCallback('qb-garage:server:checkOwnership', function(owned)
+        QBCore.Functions.TriggerCallback('qb-garages:server:checkOwnership', function(owned)
             if owned then
                 local bodyDamage = math.ceil(GetVehicleBodyHealth(veh))
                 local engineDamage = math.ceil(GetVehicleEngineHealth(veh))
                 local totalFuel = exports['cdn-fuel']:GetFuel(veh)
-                TriggerServerEvent("qb-vehicletuning:server:SaveVehicleProps", QBCore.Functions.GetVehicleProperties(veh))
-                TriggerServerEvent('qb-garage:server:updateVehicle', 1, totalFuel, engineDamage, bodyDamage, plate, indexgarage, type, PlayerGang.name)
+                TriggerServerEvent("qb-mechanicjob:server:SaveVehicleProps", QBCore.Functions.GetVehicleProperties(veh))
+                TriggerServerEvent('qb-garages:server:updateVehicle', 1, totalFuel, engineDamage, bodyDamage, plate, indexgarage, type, PlayerGang.name)
                 CheckPlayers(veh, garage)
                 if type == "house" then
                     exports['qb-core']:DrawText(Lang:t("info.car_e"), 'left')
@@ -473,7 +473,7 @@ RegisterNetEvent('qb-garages:client:TakeOutDepot', function(data)
     local vehicle = data.vehicle
 
     if vehicle.depotprice ~= 0 then
-        TriggerServerEvent("qb-garage:server:PayDepotPrice", data)
+        TriggerServerEvent("qb-garages:server:PayDepotPrice", data)
     else
         TriggerEvent("qb-garages:client:takeOutGarage", data)
     end
