@@ -225,7 +225,6 @@ Config.Garages = {
         ["type"] = "gang",                --public, job, gang, depot
         ["vehicle"] = "car",              --car, air, sea, rig
         ["job"] = "ballas",
-        ["jobType"] = "ballas"
     },
     ["families"] = {
         ["label"] = "Families  - Garage",
@@ -239,7 +238,6 @@ Config.Garages = {
         ["type"] = "gang",                --public, job, gang, depot
         ["vehicle"] = "car",              --car, air, sea, rig
         ["job"] = "families",
-        ["jobType"] = "families"
     },
     ["lostmc"] = {
         ["label"] = "Lost MC",
@@ -253,7 +251,6 @@ Config.Garages = {
         ["type"] = "gang",                --public, job, gang, depot
         ["vehicle"] = "car",              --car, air, sea, rig
         ["job"] = "lostmc",
-        ["jobType"] = "lostmc"
     },
     ["cartel"] = {
         ["label"] = "Cartel",
@@ -267,7 +264,6 @@ Config.Garages = {
         ["type"] = "gang",                --public, job, gang, depot
         ["vehicle"] = "car",              --car, air, sea, rig
         ["job"] = "cartel",
-        ["jobType"] = "cartel"
     },
     ["police"] = {
         ["label"] = "Parking Privé LSPD",
@@ -461,7 +457,6 @@ Config.Garages = {
         ["type"] = "job",                --public, job, gang, depot
         ["vehicle"] = "car",                --car, air, sea, rig
         ["job"] = "vineyard",
-        ["jobType"] = "vigne"                 
     },
     ["burgershot"] = {
         ["label"] = "Parking Privé Burgershot",
@@ -475,7 +470,6 @@ Config.Garages = {
         ["type"] = "job",                --public, job, gang, depot
         ["vehicle"] = "car",              --car, air, sea, rig
         ["job"] = "burgershot",
-        ["jobType"] = "burger"
     },
     ["ambulance"] = {
         ["label"] = "Parking Privé EMS",
@@ -490,6 +484,20 @@ Config.Garages = {
         ["vehicle"] = "car",              --car, air, sea, rig
         ["job"] = "ambulance",
         ["jobType"] = "ems"
+    },
+    ["ambulance"] = {
+        ["label"] = "Parking Privé Benny's",
+        ["takeVehicle"] = vector3(-186.61, -1316.1, 31.3),
+        ["spawnPoint"] = vector4(-180.17, -1315.28, 31.26, 1.0),
+        ["putVehicle"] = vector3(-185.13, -1322.78, 31.27),
+        ["showBlip"] = false,
+        ["blipName"] = "Bennys - Garage Privé",
+        ["blipNumber"] = 357,
+        ["blipColor"] = 5,
+        ["type"] = "job",                --public, job, gang, depot
+        ["vehicle"] = "car",              --car, air, sea, rig
+        ["job"] = "mechanic",
+        ["jobType"] = "mechanic"
     },
 }
 Config.HouseGarages = {}
