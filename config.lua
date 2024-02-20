@@ -141,7 +141,6 @@ Config.Garages = {
         ["type"] = "public",                --public, job, gang, depot
         ["vehicle"] = "car"                 --car, air, sea, rig
     },
-    --[[
     ["shoreparking"] = {
         ["label"] = "Shore - Parking",
         ["takeVehicle"] = vector3(1726.21, 3707.16, 34.17),
@@ -154,7 +153,6 @@ Config.Garages = {
         ["type"] = "public",                --public, job, gang, depot
         ["vehicle"] = "car"                 --car, air, sea, rig
     },
-    --]]
     ["haanparking"] = {
         ["label"] = "Bell Farms - Parking",
         ["takeVehicle"] = vector3(78.34, 6418.74, 31.28),
@@ -191,7 +189,8 @@ Config.Garages = {
         ["type"] = "public",                --public, job, gang, depot
         ["vehicle"] = "car"                 --car, air, sea, rig
     },
-    --[[    ["hayesdepot"] = {
+    --[[
+        ["hayesdepot"] = {
         ["label"] = "Hayes Depot",
         ["takeVehicle"] = vector3(491.0, -1314.69, 29.25),
         ["spawnPoint"] = vector4(491.0, -1314.69, 29.25, 304.5),
@@ -201,7 +200,8 @@ Config.Garages = {
         ["blipColor"] = 3,
         ["type"] = "depot",                --public, job, gang, depot
         ["vehicle"] = "car"                 --car, air, sea, rig
-    }, --]]
+    },
+    --]]
     ["impoundlot"] = {
         ["label"] = "Fourrière",
         ["takeVehicle"] = vector3(409.89, -1623.51, 29.29),
@@ -485,7 +485,7 @@ Config.Garages = {
         ["job"] = "ambulance",
         ["jobType"] = "ems"
     },
-    ["ambulance"] = {
+    ["mechanic"] = {
         ["label"] = "Parking Privé Benny's",
         ["takeVehicle"] = vector3(-186.61, -1316.1, 31.3),
         ["spawnPoint"] = vector4(-180.17, -1315.28, 31.26, 1.0),
